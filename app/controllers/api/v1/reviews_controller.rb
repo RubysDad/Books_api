@@ -6,7 +6,7 @@ class Api::V1::ReviewsController < ApplicationController
   before_action :authenticate_with_token!, only: %w[create update destroy]
 
   def index
-    @reviews = @book.reviews
+    @reviews = @book.reviews.includes(:user)
     reviews_serializer = parse_json(@reviews)
     json_response('Indexed Reviews Successfully', true, { reviews: reviews_serializer }, :ok)
   end
@@ -65,6 +65,6 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:title, :content_rating, :recommend_rating)
+    params.require(:review).permit(:title, :content_rating, :recommend_rating, :image_review)
   end
 end
