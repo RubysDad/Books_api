@@ -47,3 +47,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise', '~> 4.6', '>= 4.6.2'
 gem 'simple_token_authentication', '~> 1.15', '>= 1.15.1'
 gem 'faker', '~> 1.9', '>= 1.9.6'
+gem 'active_model_serializers', '~> 0.10.10'
