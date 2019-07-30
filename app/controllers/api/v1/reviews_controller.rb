@@ -22,8 +22,9 @@ class Api::V1::ReviewsController < ApplicationController
     review.book_id = params[:book_id]
 
     if review.save
-      reviews_serializer = parse_json(@review)
+      reviews_serializer = parse_json(review)
       json_response('Created Review Successfully', true, { review: reviews_serializer }, :ok)
+      NotificationJob.perform_later(review)
     else
       json_response('Could not create review', false, {}, :unprocessable_entity)
     end
