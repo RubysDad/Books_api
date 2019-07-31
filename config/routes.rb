@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
 
       resources :books, only: %w[index show] do
+        get 'titles', to: 'books#review_titles', as: 'titles'
         resources :reviews, only: %w[index show create update destroy]
       end
     end

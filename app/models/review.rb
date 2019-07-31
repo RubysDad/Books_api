@@ -17,6 +17,8 @@ class Review < ApplicationRecord
     self.average_rating = ((self.content_rating.to_f + self.recommend_rating.to_f) / 2).round(1)
   end
 
+  scope :reviews_by_user, -> { Review.joins(:user) }
+
   private
 
   def parse_image

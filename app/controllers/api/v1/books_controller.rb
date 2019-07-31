@@ -14,6 +14,11 @@ class Api::V1::BooksController < ApplicationController
     json_response('Book Found', true, { book: books_serializer }, :ok)
   end
 
+  def review_titles
+    @books = Book.review_titles
+    json_response('Indexed Book titles and Review titles Successfully', true, { books: @books }, :ok)
+  end
+
   private
 
   def load_book
