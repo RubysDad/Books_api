@@ -12,8 +12,9 @@ Rails.application.routes.draw do
         delete 'sign_out', to: 'sessions#destroy'
       end
 
+      get 'books/titles', to: 'books#index', scope: 'titles'
+
       resources :books, only: %w[index show] do
-        get 'titles', to: 'books#review_titles', as: 'titles'
         resources :reviews, only: %w[index show create update destroy]
       end
     end
