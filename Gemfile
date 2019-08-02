@@ -52,3 +52,6 @@ gem 'counter_culture', '~> 2.2', '>= 2.2.3'
 gem 'bullet', '~> 6.0', '>= 6.0.1'
 gem 'paperclip', '~> 6.1'
 gem 'sidekiq', '~> 5.2', '>= 5.2.7'
+gem 'whenever', '~> 1.0', require: false
+
+
