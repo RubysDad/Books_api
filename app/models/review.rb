@@ -1,4 +1,6 @@
 class Review < ApplicationRecord
+  acts_as_paranoid
+
   before_validation :parse_image
   before_save :calculate_average_rating
   belongs_to :user
@@ -27,3 +29,11 @@ class Review < ApplicationRecord
     self.picture = image
   end
 end
+
+# r = Review.last
+# r.delete
+# re = Review.all.size => 27
+# re = Review.with_deleted.all.size => 28
+# Review.with_deleted.last.restore => to restore soft delete
+# Review.last.really_destroy! => to really destroy it
+#

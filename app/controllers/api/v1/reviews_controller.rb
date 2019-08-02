@@ -2,8 +2,8 @@
 
 class Api::V1::ReviewsController < ApplicationController
   before_action :load_book, only: :index
-  before_action :load_review, only: %w[show update destroy]
-  before_action :authenticate_with_token!, only: %w[create update destroy]
+  before_action :load_review, only: %w[show update destroy restore]
+  before_action :authenticate_with_token!, only: %w[create update destroy restore]
 
   def index
     @reviews = @book.reviews.includes(:user)
@@ -35,7 +35,7 @@ class Api::V1::ReviewsController < ApplicationController
 
     if @review.update(review_params)
       reviews_serializer = parse_json(@review)
-      json_response('Updated Review Succesfully', true, { review: reviews_serializer}, :ok)
+      json_response('Updated Review Successfully', true, { review: reviews_serializer}, :ok)
     else
       json_response('Could not Update Review', false, {}, :unprocessable_entity)
     end
@@ -44,10 +44,11 @@ class Api::V1::ReviewsController < ApplicationController
   def destroy
     return json_response('Unauthorized Access', false, {}, :unauthorized) if invalid_user(@review.user)
 
-    if @review.destroy
-      json_response('Deleted Review Succesfully', true, {}, :ok)
+    if params[:type] == 'indefinitely'
+      @review.really_destroy!
+      json_response('Deleted Review Successfully', true, {}, :ok)
     else
-      json_response('Could not Delete Review', false, {}, :unprocessable_entity)
+      soft_delete_review
     end
   end
 
@@ -67,5 +68,18 @@ class Api::V1::ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:title, :content_rating, :recommend_rating, :image_review)
+  end
+
+  def soft_delete_review
+    if @review.destroy
+      json_response('Soft-Deleted Review Successfully', true, {}, :ok)
+    else
+      json_response('Could not Delete Review', false, {}, :unprocessable_entity)
+    end
+  end
+
+  def restore
+    @review.restore
+    json_response('Deleted Review Restored Successfully', true, {}, :ok)
   end
 end
