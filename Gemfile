@@ -54,5 +54,6 @@ gem 'paperclip', '~> 6.1'
 gem 'sidekiq', '~> 5.2', '>= 5.2.7'
 gem 'whenever', '~> 1.0', require: false
 gem 'paranoia', '~> 2.4', '>= 2.4.2'
+gem 'fast_jsonapi', '~> 1.5'
 
 

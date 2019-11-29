@@ -18,5 +18,9 @@ Rails.application.routes.draw do
         resources :reviews, only: %w[index show create update destroy]
       end
     end
+
+    namespace :v2 do
+      resources :books, only: %w[index show]
+    end
   end
 end
