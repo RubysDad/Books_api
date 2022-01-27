@@ -51,7 +51,7 @@ gem 'active_model_serializers', '~> 0.10.10'
 gem 'counter_culture', '~> 2.2', '>= 2.2.3'
 gem 'bullet', '~> 6.0', '>= 6.0.1'
 gem 'paperclip', '~> 6.1'
-gem 'sidekiq', '~> 5.2', '>= 5.2.7'
+gem 'sidekiq', '~> 6.4'
 gem 'whenever', '~> 1.0', require: false
 gem 'paranoia', '~> 2.4', '>= 2.4.2'
 
